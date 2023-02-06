@@ -17,10 +17,33 @@ Open index.html in your browser. Every time you refresh the page,
 a different greeting should be displayed in the box.
 */
 
-fetch("*** Write the API address here ***")
+const element = document.getElementById("greeting-text");
+
+//refresh the page
+
+fetch("https://holy-snow-6805.fly.dev/api/greetings")
   .then(function (response) {
-    return response.text();
+    return response.json(); //changed to .json so I can use objects rather than strings
   })
   .then(function (greeting) {
-    // Write the code to display the greeting text here
+    element.innerHTML = "Greeting: " + greeting.hello;
+
+    const newP = document.createElement("p");
+    newP.innerHTML = "Language: " + greeting.language;
+    element.appendChild(newP);
   });
+
+//for button, async function
+const button = document.getElementById("greeting-btn");
+
+async function updateGreeting() {
+  const response = await fetch("https://holy-snow-6805.fly.dev/api/greetings");
+  const greeting = await response.json();
+  element.innerHTML = "Greeting: " + greeting.hello;
+
+  const newP = document.createElement("p");
+  newP.innerHTML = "Language: " + greeting.language;
+  element.appendChild(newP);
+}
+
+button.addEventListener("click", updateGreeting);
