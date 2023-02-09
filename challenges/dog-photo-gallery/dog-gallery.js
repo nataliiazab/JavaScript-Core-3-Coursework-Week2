@@ -17,6 +17,7 @@ function changePhoto() {
       .then((data) => {
         myArray = data;
         myImage.src = myArray.message;
+        // console.log("Status: " + myArray.status)
       });
   } catch (error) {
     console.log(error);
